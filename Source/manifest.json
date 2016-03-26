@@ -1,8 +1,8 @@
 {
 	"manifest_version": 2,
-	"name": "Cloud To Butt Plus",
-	"version": "1.2",
-	"description": "Replaces the text 'the cloud' with 'my butt', as well as 'cloud' with 'butt' in certain contexts.",
+	"name": "Grammer Ungooder",
+	"version": "1.0",
+	"description": "Fix all that pesky 'correct' grammer",
 	"content_scripts": 
 	[
 		{
