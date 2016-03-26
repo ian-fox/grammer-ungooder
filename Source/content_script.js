@@ -34,9 +34,9 @@ function handleText(textNode) {
     "\\b(T|t)he\\b": "$1eh",
     "(G|g)old": "$1lod",
     "([Aa])n\\s([Hh]\\w*)": "$1 $2",
-    "(S|s)hould've": "$1hould of",
-    "(W|w)ould've": "$1ould of",
-    "(C|c)ould've": "$1ould of",
+    "(S|s)hould('|’)ve": "$1hould of",
+    "(W|w)ould('|’)ve": "$1ould of",
+    "(C|c)ould('|’)ve": "$1ould of",
     "(S|s)hould\\shave": "$1hould of",
     "(W|w)ould\\shave": "$1ould of",
     "\\bam\\b": "is",
@@ -50,13 +50,13 @@ function handleText(textNode) {
     "(B|b)ecause": "coz",
     "(C|c)ollege": "$1olege",
     "(C|c)ould have": "$1ould of",
-    "(C|c)ould've": "$1ould of",
+    "(C|c)ould('|’)ve": "$1ould of",
     "(F|f)ewer":"TEMP$1ewer",
     "\\nLess\\n": "Fewer",
     "\\nless\\n": "fewer",
     "TEMPFewer": "Less",
     "TEMPfewer": "less",
-    "gorgeous": "gorgeos",
+    "(G|g)orgeous": "$1orgeos",
     "(H|h)as": "TEMP$1as",
     "(H|h)ave":"$1as",
     "TEMP(H|h)as": "$1ave",
@@ -72,21 +72,21 @@ function handleText(textNode) {
     "TEMP(T|t)han": "$1en",
     "(T|t)hat": "dat",
     "(T|t)here": "their",
-    "(T|t)hey're": "their",
+    "(T|t)hey('|’)re": "their",
     "(T|t)his": "dis",
     "(W|w)hat": "$1at",
     "(W|w)ith": "$1if",
-    "(Y|y)ou're":"TEMP$1ou're",
-    "(Y|y)our":"$1ou're",
-    "TEMP(Y|y)ou're": "$1our",
+    "(Y|y)ou('|’)re": "TEMP$1ou$2re",
+    "(Y|y)our": "$1ou're",
+    "TEMP(Y|y)ou('|’)re": "$1our",
   };
 
 	var v = textNode.nodeValue;
 
   for (replacement in replacements) {
-    var se = new RegExp(replacement);
+    var se = new RegExp(replacement, "g");
     var re = replacements[replacement];
-    v = v.replace(se, re);
+    if (Math.random() > 0.7) v = v.replace(se, re);
   }
 
 
