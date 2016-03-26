@@ -3,6 +3,9 @@
 	"name": "Grammer Ungooder",
 	"version": "1.0",
 	"description": "Fix all that pesky 'correct' grammer",
+	"icons": {
+		"128": "icon128.png"
+		},
 	"content_scripts": 
 	[
 		{
