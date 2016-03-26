@@ -30,34 +30,66 @@ function walk(node)
 }
 
 function handleText(textNode) {
+  var replacements = {
+    "\\b(T|t)he\\b": "$1eh",
+    "(G|g)old": "$1lod",
+    "([Aa])n\\s([Hh]\\w*)": "$1 $2",
+    "(S|s)hould've": "$1hould of",
+    "(W|w)ould've": "$1ould of",
+    "(C|c)ould've": "$1ould of",
+    "(S|s)hould\\shave": "$1hould of",
+    "(W|w)ould\\shave": "$1ould of",
+    "\\bam\\b": "is",
+    "\\b(I|i)\\b": "me",
+    "a lot": "alot",
+    "(E|e)ffect": "TEMP$1ffect",
+    "affect": "effect",
+    "Affect": "Effect",
+    "TEMPeffect": "affect",
+    "TEMPEffect": "Affect",
+    "(B|b)ecause": "coz",
+    "(C|c)ollege": "$1olege",
+    "(C|c)ould have": "$1ould of",
+    "(C|c)ould've": "$1ould of",
+    "(F|f)ewer":"TEMP$1ewer",
+    "\\nLess\\n": "Fewer",
+    "\\nless\\n": "fewer",
+    "TEMPFewer": "Less",
+    "TEMPfewer": "less",
+    "gorgeous": "gorgeos",
+    "(H|h)as": "TEMP$1as",
+    "(H|h)ave":"$1as",
+    "TEMP(H|h)as": "$1ave",
+    "help": "halp",
+    "know": "no",
+    "(P|p)rincipal": "TEMP$1rincipal",
+    "(P|p)rinciple": "$1rincipal",
+    "TEMP(P|p)rincipal": "$1rincipal",
+    "(R|r)eally": "$1ally",
+    "(S|s)weetie": "$1weaty",
+    "(T|t)han":"TEMP$1han",
+    "(T|t)hen": "$1an",
+    "TEMP(T|t)han": "$1en",
+    "(T|t)hat": "dat",
+    "(T|t)here": "their",
+    "(T|t)hey're": "their",
+    "(T|t)his": "dis",
+    "(W|w)hat": "$1at",
+    "(W|w)ith": "$1if",
+    "(Y|y)ou're":"TEMP$1ou're",
+    "(Y|y)our":"$1ou're",
+    "TEMP(Y|y)ou're": "$1our",
+  };
+
 	var v = textNode.nodeValue;
 
-  // Deal with the easy case
-  v = v.replace(/\b(T|t)he (C|c)loud/g, function(match, p1, p2, offset, string) {
-    // t - 7 = m
-    // c - 1 = b
-    m = String.fromCharCode(p1.charCodeAt(0) - 7);
-    b = String.fromCharCode(p2.charCodeAt(0) - 1);
-    return m + "y " + b + "utt";
-  });
-
-  // Deal with private clouds
-  v = v.replace(/\b(P|p)rivate (C|c)loud/g, function(match, p1, p2, offset, string) {
-    // c - 1 = b
-    b = String.fromCharCode(p2.charCodeAt(0) - 1);
-    return b + "utt";
-  });
-  // Get the corner cases
-  if(v.match(/cloud/i)) {
-    // If we're not talking about weather
-    if(v.match(/PaaS|SaaS|IaaS|computing|data|storage|cluster|distributed|server|hosting|provider|grid|enterprise|provision|apps|hardware|software|/i)) {
-      v = v.replace(/(C|c)loud/gi, function(match, p1, offset, string) {
-        // c - 1 = b
-        b = String.fromCharCode(p1.charCodeAt(0) - 1);
-        return b + "utt";
-      });
-    }
+  for (replacement in replacements) {
+    var se = new RegExp(replacement);
+    var re = replacements[replacement];
+    v = v.replace(se, re);
   }
+
+
 	textNode.nodeValue = v;
 }
 
